@@ -3,6 +3,7 @@ import { Server } from "http";
 import app from "./app";
 import { envVars } from "./app/config/env";
 import { prisma } from "./app/config/db";
+import { seedAdmin } from "./app/utils/seedAdmin";
 
 let server: Server;
 
@@ -27,7 +28,11 @@ const startServer = async () => {
   }
 };
 
-startServer();
+(async () => {
+  await startServer();
+  await seedAdmin();
+})();
+
 
 // unhandled rejection error
 process.on("unhandledRejection", (err) => {

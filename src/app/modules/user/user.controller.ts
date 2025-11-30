@@ -16,8 +16,18 @@ const registerCustomer = catchAsync(async (req: Request, res: Response, next: Ne
   });
 });
 
+const registerModerator = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  const result = await UserService.registerModerator(req.body); 
 
+  sendResponse(res, {
+    statusCode: httpStatus.CREATED,
+    success: true,
+    message: "Moderator registered successfully",
+    data: result,
+  });
+});
 
 export const UserController = {
   registerCustomer,
+  registerModerator
 };

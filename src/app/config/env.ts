@@ -8,6 +8,10 @@ interface EnvConfig {
     NODE_ENV: "development" | "production";
     FRONTEND_URL: string;   
     BCRYPT_SALT_ROUND: string;
+    ADMIN: {
+        ADMIN_EMAIL: string;
+        ADMIN_PASSWORD: string;
+    };
     CLOUDINARY: {
         CLOUDINARY_CLOUD_NAME: string;
         CLOUDINARY_CLOUD_API_KEY: string;
@@ -28,6 +32,8 @@ const loadEnvVariables = (): EnvConfig => {
         "NODE_ENV",
         "FRONTEND_URL",
         "BCRYPT_SALT_ROUND",
+        "ADMIN_EMAIL",
+        "ADMIN_PASSWORD",
         "CLOUDINARY_CLOUD_NAME",
         "CLOUDINARY_CLOUD_API_KEY",
         "CLOUDINARY_CLOUD_API_SECRET",
@@ -49,6 +55,10 @@ const loadEnvVariables = (): EnvConfig => {
         NODE_ENV: process.env.NODE_ENV as "development" | "production",
         FRONTEND_URL: process.env.FRONTEND_URL as string,
         BCRYPT_SALT_ROUND: process.env.BCRYPT_SALT_ROUND as string,
+        ADMIN: {
+            ADMIN_EMAIL: process.env.ADMIN_EMAIL as string,
+            ADMIN_PASSWORD: process.env.ADMIN_PASSWORD as string,
+        },
         CLOUDINARY: {
             CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME as string,
             CLOUDINARY_CLOUD_API_KEY: process.env.CLOUDINARY_CLOUD_API_KEY as string,
