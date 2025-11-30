@@ -1,0 +1,19 @@
+import z from "zod";
+
+export const AddressZodSchema = z.object({
+  city: z.string().min(2, "City is required"),
+  country: z.string().min(2, "Country is required"),
+  address_detail: z.string().min(3, "Address detail required"),
+});
+
+export const registerCustomerZodSchema = z.object({
+  name: z.string({
+    error: "Name is required",
+  }).min(2, "Name must be at least 2 characters long"),
+  email: z.email("Invalid email address"),
+  password: z.string({
+    error: "Password is required",
+  }).min(6, "Password must be at least 6 characters long"),
+  phone: z.string(),
+  address: AddressZodSchema
+})
