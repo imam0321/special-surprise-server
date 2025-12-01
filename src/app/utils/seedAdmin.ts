@@ -1,6 +1,7 @@
 import { UserRole } from "@prisma/client";
 import { prisma } from "../config/db";
 import { envVars } from "../config/env";
+import bcrypt from "bcryptjs";
 
 export const seedAdmin = async () => {
   try {
@@ -15,11 +16,13 @@ export const seedAdmin = async () => {
       return;
     }
 
+    const hashedPassword = await bcrypt.hash(envVars.ADMIN.ADMIN_PASSWORD, Number(process.env.BCRYPT_SALT_ROUND));
+
     const newAdmin = await prisma.user.create({
       data: {
         name: "Admin",
         email: envVars.ADMIN.ADMIN_EMAIL,
-        password: envVars.ADMIN.ADMIN_PASSWORD,
+        password: hashedPassword,
         role: UserRole.ADMIN,
         address: {
           create: {

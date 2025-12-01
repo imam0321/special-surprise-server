@@ -1,0 +1,37 @@
+import { NextFunction, Request, Response } from "express";
+import { JwtPayload } from "jsonwebtoken";
+import { envVars } from "../config/env";
+import { verifyToken } from "../utils/jwt";
+import httpStatus from "http-status-codes"
+import AppError from "../errorHelpers/AppError";
+import { isUserExist } from "./isUserExist";
+
+export const checkAuth = (...authRoles: string[]) => async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const accessToken = req.headers.authorization || req.cookies.accessToken;
+
+    if (!accessToken) {
+      throw new AppError(httpStatus.NOT_FOUND, "No Token found");
+    }
+
+    const verifiedToken = verifyToken(
+      accessToken,
+      envVars.JWT.JWT_ACCESS_SECRET
+    ) as JwtPayload;
+
+    const user = await isUserExist(verifiedToken.email);
+
+    // Role check
+    if (authRoles.length > 0 && !authRoles.includes(user.role)) {
+      throw new AppError(
+        httpStatus.FORBIDDEN,
+        "You are not permitted to view this route"
+      );
+    }
+
+    req.user = verifiedToken;
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
