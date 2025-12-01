@@ -45,11 +45,21 @@ export const createNewAccessTokenWithRefreshToken = async (
     role: user.role,
   };
 
-  const accessToken = generateToken(
+  const newAccessToken = generateToken(
     jwtPayload,
     envVars.JWT.JWT_ACCESS_SECRET,
     envVars.JWT.JWT_ACCESS_EXPIRES
   );
 
-  return accessToken;
+  const newRefreshToken = generateToken(
+    jwtPayload,
+    envVars.JWT.JWT_REFRESH_SECRET,
+    envVars.JWT.JWT_REFRESH_EXPIRES
+  );
+
+
+  return {
+    accessToken: newAccessToken,
+    refreshToken: newRefreshToken,
+  };
 };
