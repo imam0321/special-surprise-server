@@ -6,6 +6,8 @@ import { createNewAccessTokenWithRefreshToken, createUserTokens } from '../../ut
 import { JwtPayload } from 'jsonwebtoken';
 import { envVars } from '../../config/env';
 import { prisma } from '../../config/db';
+import jwt from 'jsonwebtoken';
+import { sendEmail } from '../../utils/sendEmail';
 
 const credentialLogin = async (payload: { email: string, password: string }) => {
   const user = await isUserExist(payload.email);
@@ -71,9 +73,64 @@ const changePassword = async (user: JwtPayload, payload: { oldPassword: string, 
   })
 }
 
+const forgotPassword = async (payload: { email: string }) => {
+  const userInfo = await isUserExist(payload.email);
+
+  const jwtPayload = {
+    userId: userInfo.id,
+    email: userInfo.email,
+    role: userInfo.role,
+  };
+
+  const resetToken = jwt.sign(jwtPayload, envVars.JWT.JWT_ACCESS_SECRET, {
+    expiresIn: "10m",
+  });
+
+  const resetUILink = `${envVars.FRONTEND_URL}/reset-password?id=${userInfo.id}&token=${resetToken}`;
+
+  await sendEmail({
+    to: userInfo.email,
+    subject: "Password Reset",
+    templateName: "forgotPassword",
+    templateData: {
+      name: userInfo.name,
+      resetUILink,
+    },
+  });
+
+};
+
+const resetPassword = async (decodedToken: JwtPayload, id: string, newPassword: string) => {
+  if (id != decodedToken.userId) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      "You can not reset your password!"
+    );
+  }
+
+  const userInfo = await isUserExist(decodedToken.email);
+
+  const hashPassword = await bcrypt.hash(
+    newPassword,
+    Number(envVars.BCRYPT_SALT_ROUND)
+  );
+
+  await prisma.user.update({
+    where: {
+      id: userInfo.id
+    },
+    data: {
+      password: hashPassword
+    }
+  })
+};
+
+
 export const AuthService = {
   credentialLogin,
   getMe,
   getNewAccessToken,
-  changePassword
+  changePassword,
+  forgotPassword,
+  resetPassword
 };

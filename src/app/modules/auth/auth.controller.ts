@@ -60,9 +60,36 @@ const changePassword = catchAsync(async (req: Request, res: Response, next: Next
   });
 });
 
+const forgotPassword = catchAsync(async (req: Request, res: Response) => {
+  await AuthService.forgotPassword(req.body);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Check your email!",
+    data: null,
+  });
+});
+
+const resetPassword = catchAsync(async (req: Request, res: Response) => {
+  const decodedToken = req.user as JwtPayload;
+  const { id, newPassword } = req.body;
+
+  await AuthService.resetPassword(decodedToken, id, newPassword);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Password Reset!",
+    data: null,
+  });
+});
+
 export const AuthController = {
   credentialLogin,
   getMe,
   getNewAccessToken,
-  changePassword
+  changePassword,
+  forgotPassword,
+  resetPassword
 };
