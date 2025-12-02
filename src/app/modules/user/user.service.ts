@@ -1,9 +1,12 @@
 import { prisma } from "../../config/db";
 import bcrypt from "bcryptjs";
-import { IRegisterCustomerPayload, IRegisterModeratorPayload } from "./user.interface";
+import { IRegisterCustomerPayload, IRegisterModeratorPayload, IUpdateUser } from "./user.interface";
 import AppError from "../../errorHelpers/AppError";
 import httpStatus from "http-status-codes";
-import { UserRole } from "@prisma/client";
+import { User, UserRole } from "@prisma/client";
+import { JwtPayload } from "jsonwebtoken";
+import { isUserExist } from "../../utils/isUserExist";
+import { fileUploader } from "../../config/cloudinary.config";
 
 const registerCustomer = async (payload: IRegisterCustomerPayload) => {
   const isUserExist = await prisma.user.findUnique({
@@ -69,7 +72,44 @@ const registerModerator = async (payload: IRegisterModeratorPayload) => {
   return newModerator;
 }
 
+const updateMyProfile = async (payload: Partial<IUpdateUser> & { profileFile?: Express.Multer.File }, user: JwtPayload) => {
+  const userInfo = await isUserExist(user.email);
+
+  let updateProfileUrl = userInfo?.profile;
+
+  if (payload?.profileFile) {
+    if (userInfo?.profile) {
+      await fileUploader.deleteFromCloudinary(userInfo.profile);
+    }
+
+    const uploadResult = await fileUploader.uploadToCloudinary(payload.profileFile);
+    updateProfileUrl = uploadResult.secure_url;
+  }
+
+  const updatedUser = await prisma.user.update({
+    where: {
+      id: userInfo.id,
+    },
+    data: {
+      name: payload?.name,
+      phone: payload?.phone,
+      profile: updateProfileUrl,
+      address: payload?.address ? {
+        update: {
+          city: payload?.address?.city,
+          country: payload?.address?.country,
+          address_detail: payload?.address?.address_detail,
+        }
+      } : undefined,
+    },
+    include: { address: true }
+  });
+
+  return updatedUser;
+}
+
 export const UserService = {
   registerCustomer,
-  registerModerator
+  registerModerator,
+  updateMyProfile
 }; 

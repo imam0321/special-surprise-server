@@ -23,3 +23,13 @@ export interface IRegisterModeratorPayload {
     address_detail: string;
   };
 }
+export interface IUpdateUser {
+  name?: string;
+  phone?: string;
+  profile?: string;
+  address?: {
+    city?: string;
+    country?: string;
+    address_detail?: string;
+  };
+}
