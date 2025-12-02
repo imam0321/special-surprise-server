@@ -3,10 +3,12 @@ import bcrypt from "bcryptjs";
 import { IRegisterCustomerPayload, IRegisterModeratorPayload, IUpdateUser } from "./user.interface";
 import AppError from "../../errorHelpers/AppError";
 import httpStatus from "http-status-codes";
-import { User, UserRole } from "@prisma/client";
+import { Prisma, User, UserRole } from "@prisma/client";
 import { JwtPayload } from "jsonwebtoken";
 import { isUserExist } from "../../utils/isUserExist";
 import { fileUploader } from "../../config/cloudinary.config";
+import { QueryBuilder } from "../../utils/QueryBuilder";
+import { password } from "bun";
 
 const registerCustomer = async (payload: IRegisterCustomerPayload) => {
   const isUserExist = await prisma.user.findUnique({
@@ -108,8 +110,64 @@ const updateMyProfile = async (payload: Partial<IUpdateUser> & { profileFile?: E
   return updatedUser;
 }
 
+const getAllCustomers = async (query: Record<string, any>) => {
+  const { page, limit, sortBy, sortOrder, searchTerm, isDeleted, status } = query;
+
+  const queryBuilder = new QueryBuilder(
+    prisma.user,
+    {
+      page,
+      limit,
+      sortBy,
+      sortOrder,
+      searchTerm,
+      searchFields: ["name", "phone", "email"],
+    },
+    {
+      isDeleted,
+      status,
+    },
+    {
+      password: false,
+    }
+  )
+    .addWhere({ role: UserRole.USER })
+    .setInclude({ address: true });
+
+  return await queryBuilder.exec();
+};
+
+const getAllModerators = async (query: Record<string, any>) => {
+  const { page, limit, sortBy, sortOrder, searchTerm, isDeleted, status } = query;
+
+  const queryBuilder = new QueryBuilder(
+    prisma.user,
+    {
+      page,
+      limit,
+      sortBy,
+      sortOrder,
+      searchTerm,
+      searchFields: ["name", "phone", "email"],
+    },
+    {
+      isDeleted,
+      status,
+    },
+    {
+      password: false,
+    }
+  )
+    .addWhere({ role: UserRole.MODERATOR })
+    .setInclude({ address: true });
+
+  return await queryBuilder.exec();
+}
+
 export const UserService = {
   registerCustomer,
   registerModerator,
-  updateMyProfile
+  updateMyProfile,
+  getAllCustomers,
+  getAllModerators
 }; 

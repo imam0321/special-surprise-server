@@ -43,9 +43,35 @@ const updateMyProfile = catchAsync(async (req: Request, res: Response, next: Nex
   });
 });
 
+const getAllCustomers = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  const result = await UserService.getAllCustomers(req.query as Record<string, any>);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Customers retrieved successfully",
+    data: result.data,
+    meta: result.meta
+  });
+});
+
+const getAllModerators = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  const result = await UserService.getAllModerators(req.query as Record<string, any>);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Moderators retrieved successfully",
+    data: result,
+  });
+});
+
+
 
 export const UserController = {
   registerCustomer,
   registerModerator,
-  updateMyProfile
+  updateMyProfile,
+  getAllCustomers,
+  getAllModerators
 };
