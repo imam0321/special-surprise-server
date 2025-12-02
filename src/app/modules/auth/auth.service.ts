@@ -25,11 +25,7 @@ const credentialLogin = async (payload: { email: string, password: string }) => 
   };
 
   const tokens = createUserTokens(JwtPayload);
-
-  return {
-    accessToken: tokens.accessToken,
-    refreshToken: tokens.refreshToken
-  };
+  return tokens;
 }
 
 const getMe = async (decodedToken: JwtPayload) => {

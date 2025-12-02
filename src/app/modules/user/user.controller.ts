@@ -66,6 +66,28 @@ const getAllModerators = catchAsync(async (req: Request, res: Response, next: Ne
   });
 });
 
+const getSingleUserById = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  const result = await UserService.getSingleUserById(req.params.id as string);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User retrieved successfully",
+    data: result,
+  });
+});
+
+const softDeleteUserById = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  const result = await UserService.softDeleteUserById(req.params.id as string);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User soft deleted successfully",
+    data: result,
+  });
+});
+
 
 
 export const UserController = {
@@ -73,5 +95,7 @@ export const UserController = {
   registerModerator,
   updateMyProfile,
   getAllCustomers,
-  getAllModerators
+  getAllModerators,
+  getSingleUserById,
+  softDeleteUserById
 };

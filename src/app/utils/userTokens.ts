@@ -6,9 +6,9 @@ import { isUserExist } from "./isUserExist";
 
 export const createUserTokens = (user: { id: string, email: string, role: UserRole }) => {
   const jwtPayload = {
-    userId: user.id,
-    email: user.email,
-    role: user.role,
+    userId: user?.id,
+    email: user?.email,
+    role: user?.role,
   };
 
   const accessToken = generateToken(

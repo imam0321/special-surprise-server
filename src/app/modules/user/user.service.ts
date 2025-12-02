@@ -164,10 +164,45 @@ const getAllModerators = async (query: Record<string, any>) => {
   return await queryBuilder.exec();
 }
 
+const getSingleUserById = async (id: string) => {
+  const user = await prisma.user.findUnique({
+    where: { id },
+    include: {
+      address: true,
+    },
+  });
+
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, "User not found");
+  }
+
+  const { password, ...userInfo } = user;
+  return userInfo;
+}
+
+const softDeleteUserById = async (id: string) => {
+  const user = await prisma.user.findUnique({
+    where: { id },
+  });
+  
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, "User not found");
+  }
+
+  const softDeletedUser = await prisma.user.update({
+    where: { id },
+    data: { isDeleted: true },
+  });
+  return softDeletedUser;
+}
+
+
 export const UserService = {
   registerCustomer,
   registerModerator,
   updateMyProfile,
   getAllCustomers,
-  getAllModerators
+  getAllModerators,
+  getSingleUserById,
+  softDeleteUserById
 }; 
