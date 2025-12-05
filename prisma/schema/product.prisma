@@ -13,7 +13,6 @@ model Product {
   id              String   @id @default(uuid())
   title           String
   thumbnail       String
-  slug            String   @unique
   items           String[]
   price           Int
   productCode     String   @unique @map("product_code")
