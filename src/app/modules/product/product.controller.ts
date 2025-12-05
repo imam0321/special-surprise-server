@@ -31,8 +31,48 @@ const getAllProducts = catchAsync(async (req: Request, res: Response, next: Next
   });
 });
 
+const getProductByProductCode = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  const result = await ProductService.getProductByProductCode(req.params.productCode as string);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Product retrieve successfully",
+    data: result,
+  });
+});
+
+const updateProduct = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+   const payload = {
+    ...req.body,
+    thumbnailFile: req.file as Express.Multer.File
+  }
+  const result = await ProductService.updateProduct(req.params.productCode as string, payload);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Product updated successfully",
+    data: result,
+  });
+});
+
+const deleteProduct = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  const result = await ProductService.deleteProduct(req.params.productCode as string);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Product deleted successfully",
+    data: result,
+  });
+});
+
 
 export const ProductController = {
   createProduct,
-  getAllProducts
+  getAllProducts,
+  getProductByProductCode,
+  updateProduct,
+  deleteProduct
 }

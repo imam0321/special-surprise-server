@@ -61,8 +61,82 @@ const getAllProducts = async (query: Record<string, string>) => {
   return await queryBuilder.exec();
 }
 
+const getProductByProductCode = async (productCode: string) => {
+  const product = await prisma.product.findFirst({
+    where: {
+      productCode
+    },
+    include: {
+      category: true
+    }
+  })
+
+  if (!product) {
+    throw new AppError(httpStatus.BAD_REQUEST, "Product not found")
+  }
+
+  return product
+}
+
+const updateProduct = async (
+  productCode: string,
+  payload: Partial<Product> & { thumbnailFile?: Express.Multer.File }
+) => {
+  const product = await prisma.product.findUnique({ where: { productCode } });
+  if (!product) throw new AppError(httpStatus.BAD_REQUEST, "Product not found");
+
+  let updateThumbnailUrl = product.thumbnail;
+
+  if (payload.thumbnailFile) {
+    const uploadResult = await fileUploader.uploadToCloudinary(payload.thumbnailFile);
+    updateThumbnailUrl = uploadResult.secure_url;
+
+    if (product.thumbnail) {
+      await fileUploader.deleteFromCloudinary(product.thumbnail);
+    }
+  }
+
+  let updatedItems = product.items;
+  if (payload.items) {
+    const payloadSet = new Set(payload.items);
+    updatedItems = product.items.filter(item => payloadSet.has(item) || product.items.includes(item));
+
+    payload.items.forEach(item => {
+      if (!updatedItems.includes(item)) updatedItems.push(item);
+    });
+  }
+
+  return prisma.product.update({
+    where: { productCode },
+    data: {
+      title: payload.title ?? product.title,
+      thumbnail: updateThumbnailUrl,
+      items: updatedItems,
+      price: payload.price ?? product.price,
+      deliveryCharge: payload.deliveryCharge ?? product.deliveryCharge,
+      discountedPrice: payload.discountedPrice ?? product.discountedPrice,
+      description: payload.description ?? product.description,
+      categoryId: payload.categoryId ?? product.categoryId,
+    }
+  });
+};
+
+
+
+const deleteProduct = async (productCode: string) => {
+  const product = await prisma.product.findUnique({ where: { productCode } });
+  if (!product) throw new AppError(httpStatus.BAD_REQUEST, "Product not found");
+
+  await fileUploader.deleteFromCloudinary(product?.thumbnail);
+
+  return prisma.product.delete({ where: { productCode } });
+};
+
 
 export const ProductService = {
   createProduct,
   getAllProducts,
+  getProductByProductCode,
+  updateProduct,
+  deleteProduct
 };
