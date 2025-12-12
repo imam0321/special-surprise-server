@@ -1,6 +1,6 @@
 # special-surprise-server
 
-
+// "postinstall": "prisma generate"
 
 ## 📦 API Endpoints
 

@@ -18,13 +18,9 @@ enum OrderStatus {
 }
 
 enum PaymentStatus {
-  PENDING
-  CANCEL
-  COMPLETE
+  PAID
+  UNPAID
+  CANCELLED
+  FAILED
+  REFUNDED
 }
-
-enum PaymentMethod {
-  ONLINE
-  CASH_ON
-}
-
