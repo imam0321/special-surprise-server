@@ -14,7 +14,7 @@ type TIncludeOptions = Record<string, boolean | object>;
 export class QueryBuilder<T = any> {
   constructor(
     private model: any,
-    private options: TQueryOptions,
+    public  options: TQueryOptions,
     private filters: Record<string, any> = {},
     private includeOptions: TIncludeOptions = {}
   ) { }

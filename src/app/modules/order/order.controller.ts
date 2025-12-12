@@ -17,7 +17,50 @@ const createOrder = catchAsync(async (req: Request, res: Response, next: NextFun
   });
 });
 
+const getAllOrders = catchAsync(async (req: Request, res: Response) => {
+  const result = await OrderService.getAllOrders(req.query);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Orders retrieved successfully",
+    data: result.data,
+    meta: result.meta
+  });
+});
+
+const getMyOrders = catchAsync(async (req: Request, res: Response) => {
+  const decodedToken = req.user as JwtPayload;
+  const result = await OrderService.getMyOrders(decodedToken.userId, req.query);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "My orders retrieved successfully",
+    data: result.data,
+    meta: result.meta
+  });
+});
+
+// ⭐ Admin / Moderator: Update order status
+const updateOrderStatus = catchAsync(async (req: Request, res: Response) => {
+  const { orderId } = req.params;
+  const { status } = req.body;
+
+  const result = await OrderService.updateOrderStatus(orderId, status);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Order status updated successfully",
+    data: result,
+  });
+});
+
 
 export const OrderController = {
   createOrder,
+  getAllOrders,
+  getMyOrders,
+  updateOrderStatus,
 }
