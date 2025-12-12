@@ -23,6 +23,9 @@ router.patch("/:productCode",
   checkAuth(UserRole.ADMIN, UserRole.MODERATOR),
   ProductController.updateProduct
 );
-router.delete("/:productCode", checkAuth(UserRole.ADMIN, UserRole.MODERATOR), ProductController.deleteProduct);
+router.delete("/:productCode",
+  checkAuth(UserRole.ADMIN, UserRole.MODERATOR),
+  ProductController.deleteProduct
+);
 
 export const ProductRouters = router; 

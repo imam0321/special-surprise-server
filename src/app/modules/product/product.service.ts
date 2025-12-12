@@ -42,7 +42,7 @@ const createProduct = async (payload: Partial<Product> & { thumbnailFile?: Expre
 };
 
 const getAllProducts = async (query: Record<string, string>) => {
-  const { page, limit, sortBy, sortOrder, searchTerm, min, max } = query;
+  const { page, limit="6", sortBy, sortOrder, searchTerm, min, max, category } = query;
 
   const queryBuilder = new QueryBuilder(
     prisma.product,
@@ -57,6 +57,17 @@ const getAllProducts = async (query: Record<string, string>) => {
   )
     .addRangeFilter("price", min ? Number(min) : undefined, max ? Number(max) : undefined)
     .setInclude({ category: true });
+
+  if (category) {
+    queryBuilder.addWhere({
+      category: {
+        name: {
+          contains: category,
+          mode: "insensitive",
+        }
+      }
+    });
+  }
 
   return await queryBuilder.exec();
 }

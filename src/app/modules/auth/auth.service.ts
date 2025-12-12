@@ -78,7 +78,7 @@ const forgotPassword = async (payload: { email: string }) => {
     role: userInfo.role,
   };
 
-  const resetToken = jwt.sign(jwtPayload, envVars.JWT.JWT_ACCESS_SECRET, {
+  const resetToken = jwt.sign(jwtPayload, envVars.JWT.JWT_RESET_SECRET, {
     expiresIn: "10m",
   });
 
@@ -113,7 +113,7 @@ const resetPassword = async (decodedToken: JwtPayload, id: string, newPassword: 
 
   await prisma.user.update({
     where: {
-      id: userInfo.id
+      id
     },
     data: {
       password: hashPassword

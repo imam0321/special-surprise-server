@@ -10,7 +10,7 @@ router.get("/me", checkAuth(...Object.values(UserRole)), AuthController.getMe)
 router.post('/refresh-token', AuthController.getNewAccessToken)
 router.patch("/change-password", checkAuth(...Object.values(UserRole)), AuthController.changePassword);
 router.post("/forgot-password", AuthController.forgotPassword);
-router.patch("/reset-password", AuthController.resetPassword);
+router.post("/reset-password", checkAuth(...Object.values(UserRole)), AuthController.resetPassword);
 
 
 export const AuthRouters = router;

@@ -10,4 +10,21 @@ enum UserStatus {
   BANNED
 }
 
+enum OrderStatus {
+  PENDING
+  PREPARING
+  CANCEL
+  COMPLETE
+}
+
+enum PaymentStatus {
+  PENDING
+  CANCEL
+  COMPLETE
+}
+
+enum PaymentMethod {
+  ONLINE
+  CASH_ON
+}
 

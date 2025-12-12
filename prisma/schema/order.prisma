@@ -1,0 +1,52 @@
+model Order {
+  id                String       @id @default(uuid())
+  orderCode         String       @unique
+  receiverName      String
+  receiverPhone     String
+  receiverAddressId String
+  orderAddress      OrderAddress @relation(fields: [receiverAddressId], references: [id])
+  status            OrderStatus  @default(PENDING)
+  userId            String
+  user              User         @relation(fields: [userId], references: [id])
+  productId         String
+  product           Product      @relation(fields: [productId], references: [id])
+
+  paymentId String  @unique
+  payment   Payment @relation(fields: [paymentId], references: [id])
+
+  deliveryDate DateTime
+  deliveryTime DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("orders")
+}
+
+model Payment {
+  id                 String        @id @default(uuid())
+  amount             Int
+  method             PaymentMethod @default(CASH_ON)
+  status             PaymentStatus @default(PENDING)
+  transactionId      String        @unique
+  paymentGatewayData Json?
+  invoiceUrl         String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  order     Order?
+
+  @@map("payments")
+}
+
+model OrderAddress {
+  id             String   @id @default(uuid())
+  city           String
+  country        String
+  address_detail String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  orders         Order[]
+
+  @@map("order_addresses")
+}
