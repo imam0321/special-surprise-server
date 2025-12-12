@@ -1,0 +1,658 @@
+{
+	"info": {
+		"_postman_id": "422ed92d-4f03-4574-bea7-17e079dd3588",
+		"name": "Special Surprise",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "36909447"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register Customer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Imam\",\r\n    \"email\": \"imam.hossain0321@gmail.com\",\r\n    \"password\": \"123456789\",\r\n    \"phone\": \"01857737817\",\r\n    \"address\": {\r\n        \"country\": \"Bangladesh\",\r\n        \"city\": \"Dhaka\",\r\n        \"address_detail\": \"Mirpur-1, 1/2\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/user/register-customer"
+					},
+					"response": []
+				},
+				{
+					"name": "Register Moderator",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Moderator\",\r\n    \"email\": \"moderator@gmail.com\",\r\n    \"password\": \"moderator@gmail.com\",\r\n    \"phone\": \"01857737811\",\r\n    \"nid\": \"0123547854123\", \r\n    \"address\": {\r\n        \"country\": \"Bangladesh\",\r\n        \"city\": \"Dhaka\",\r\n        \"address_detail\": \"Mirpur-1, 2/2\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/user/register-moderator"
+					},
+					"response": []
+				},
+				{
+					"name": "Update My Profile",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/E:/Imam-disk-D/CV/462232931_3003040459849140_753635833786217068_n.jpg"
+								},
+								{
+									"key": "data",
+									"value": "{\n\"address\": {\n\"city\": \"dhaka\"\n\n}\n\n}",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": "{{base_url}}/user/update-my-profile"
+					},
+					"response": []
+				},
+				{
+					"name": "All Customer",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // Customer\r\n    // \"email\": \"imam@gmail.com\",\r\n    // \"password\": \"imam@gmail.com\"\r\n    // Admin\r\n    // \"email\": \"admin@gmail.com\",\r\n    // \"password\": \"123456789\"\r\n    //Moderator\r\n    \"email\": \"moderator@gmail.com\",\r\n    \"password\": \"moderator@gmail.com\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/user/customers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"customers"
+							],
+							"query": [
+								{
+									"key": "searchTerm",
+									"value": "01857737817",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "ACTIVE",
+									"disabled": true
+								},
+								{
+									"key": "isDeleted",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "5",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Moderators",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // Customer\r\n    // \"email\": \"imam@gmail.com\",\r\n    // \"password\": \"imam@gmail.com\"\r\n    // Admin\r\n    // \"email\": \"admin@gmail.com\",\r\n    // \"password\": \"123456789\"\r\n    //Moderator\r\n    \"email\": \"moderator@gmail.com\",\r\n    \"password\": \"moderator@gmail.com\"\r\n}"
+						},
+						"url": "{{base_url}}/user/moderators"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // Customer\r\n    // \"email\": \"imam@gmail.com\",\r\n    // \"password\": \"imam@gmail.com\"\r\n    // Admin\r\n    // \"email\": \"admin@gmail.com\",\r\n    // \"password\": \"123456789\"\r\n    //Moderator\r\n    \"email\": \"moderator@gmail.com\",\r\n    \"password\": \"moderator@gmail.com\"\r\n}"
+						},
+						"url": "{{base_url}}/user/00c834b1-1fbb-457c-b690-85f22912cc1f"
+					},
+					"response": []
+				},
+				{
+					"name": "User Soft Delete",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{base_url}}/user/soft-delete/00c834b1-1fbb-457c-b690-85f22912cc1f"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // Customer\r\n    // \"email\": \"imam.hossain0321@gmail.com\",\r\n    // \"password\": \"123456789\"\r\n\r\n    // Admin\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\": \"admin@gmail.com\"\r\n\r\n    //Moderator\r\n    // \"email\": \"moderator@gmail.com\",\r\n    // \"password\": \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Me",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // Customer\r\n    // \"email\": \"imam@gmail.com\",\r\n    // \"password\": \"imam@gmail.com\"\r\n    // Admin\r\n    // \"email\": \"admin@gmail.com\",\r\n    // \"password\": \"123456789\"\r\n    //Moderator\r\n    \"email\": \"moderator@gmail.com\",\r\n    \"password\": \"moderator@gmail.com\"\r\n}"
+						},
+						"url": "{{base_url}}/auth/me"
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // Customer\r\n    // \"email\": \"imam@gmail.com\",\r\n    // \"password\": \"imam@gmail.com\"\r\n    // Admin\r\n    // \"email\": \"admin@gmail.com\",\r\n    // \"password\": \"123456789\"\r\n    //Moderator\r\n    \"email\": \"moderator@gmail.com\",\r\n    \"password\": \"moderator@gmail.com\"\r\n}"
+						},
+						"url": "{{base_url}}/auth/refresh-token"
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"oldPassword\": \"123456789\",\r\n    \"newPassword\": \"admin@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/auth/change-password"
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"imam.hossain0321@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/auth/forgot-password"
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5MTU5M2MzOC1iM2RjLTQ3OTMtYmI2Ni0wOTdjNDUzMjlmYjkiLCJlbWFpbCI6ImFtaW1haHNoYW4xOTk5QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzY1MzY3Nzc4LCJleHAiOjE3NjUzNjgzNzh9.azsPdcSErHkP5DgdeXCXC8NHi5rcTq5jcABfTPRjJfM",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"91593c38-b3dc-4793-bb66-097c45329fb9\",\r\n    \"newPassword\": \"12345679\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/auth/reset-password"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/imamh/Desktop/578082867_1323748633100973_5419895269130452532_n.jpg"
+								},
+								{
+									"key": "data",
+									"value": "{\n  \"title\": \"Chocolate Bouquet with Custom Cake Surprise\",\n  \"price\": 2250,\n  \"discountedPrice\": 10,\n  \"deliveryCharge\": 300,\n  \"categoryId\": \"1cc28054-873b-431a-b527-96ae24b4be0c\",\n  \"items\": [\n    \"Premium chocolate bouquet arrangement\",\n    \"Assorted chocolates (KitKat, Snickers, Kinder Bueno, Amul Dark Chocolate, Perk)\",\n    \"Artificial peach roses with green fillers\",\n    \"Luxury white wrapping paper with golden marble design\",\n    \"Decorative red ribbon bow\",\n    \"Custom designed chocolate cake\",\n    \"Cake message customization\",\n    \"Celebration party popper candle\"\n  ],\n  \"description\": \"A delightful chocolate bouquet surprise paired with a custom-designed chocolate cake. Featuring premium assorted chocolates beautifully arranged with artificial roses and elegant wrapping, this combo is perfect for birthdays, anniversaries, or romantic surprises.\"\n}",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{base_url}}/product"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Products",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/imamh/Desktop/585084484_1331195705689599_2205789945317661131_n.jpg"
+								},
+								{
+									"key": "data",
+									"value": "{\n  \"title\": \"Anniversary Surprise Gift Box\",\n  \"items\": [\n    \"Customized photo frame lights\",\n    \"Personal photos\",\n    \"Chocolate pack (KitKat, Snickers, Dairy Milk etc.)\",\n    \"Customized anniversary cake\",\n    \"Gift box with drawers\"\n  ],\n  \"price\": 2500,\n  \"deliveryCharge\": 60,\n  \"discountedPrice\": 2200,\n  \"description\": \"A premium handcrafted anniversary surprise gift box including personalized photos, chocolates, and a customized cake. Perfect for making your special day memorable.\",\n\n  \"categoryId\": \"22821085-77b9-4ae2-beed-0487c6d399d0\"\n}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/product",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"product"
+							],
+							"query": [
+								{
+									"key": "searchTerm",
+									"value": "BIR-5237",
+									"disabled": true
+								},
+								{
+									"key": "min ",
+									"value": "500",
+									"disabled": true
+								},
+								{
+									"key": "max",
+									"value": "2500",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "category",
+									"value": "Birthday",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product by Product Code",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/imamh/Desktop/585084484_1331195705689599_2205789945317661131_n.jpg"
+								},
+								{
+									"key": "data",
+									"value": "{\n  \"title\": \"Anniversary Surprise Gift Box\",\n  \"items\": [\n    \"Customized photo frame lights\",\n    \"Personal photos\",\n    \"Chocolate pack (KitKat, Snickers, Dairy Milk etc.)\",\n    \"Customized anniversary cake\",\n    \"Gift box with drawers\"\n  ],\n  \"price\": 2500,\n  \"deliveryCharge\": 60,\n  \"discountedPrice\": 2200,\n  \"description\": \"A premium handcrafted anniversary surprise gift box including personalized photos, chocolates, and a customized cake. Perfect for making your special day memorable.\",\n\n  \"categoryId\": \"22821085-77b9-4ae2-beed-0487c6d399d0\"\n}",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{base_url}}/product/BIR-5237"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/imamh/Desktop/595608007_1343661091109727_1296529435342512944_n.jpg"
+								}
+							]
+						},
+						"url": "{{base_url}}/product/ANN-9243"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/imamh/Desktop/585084484_1331195705689599_2205789945317661131_n.jpg"
+								},
+								{
+									"key": "data",
+									"value": "{\n  \"title\": \"Anniversary Surprise Gift Box\",\n  \"items\": [\n    \"Customized photo frame lights\",\n    \"Personal photos\",\n    \"Chocolate pack (KitKat, Snickers, Dairy Milk etc.)\",\n    \"Customized anniversary cake\",\n    \"Gift box with drawers\"\n  ],\n  \"price\": 2500,\n  \"deliveryCharge\": 60,\n  \"discountedPrice\": 2200,\n  \"description\": \"A premium handcrafted anniversary surprise gift box including personalized photos, chocolates, and a customized cake. Perfect for making your special day memorable.\",\n\n  \"categoryId\": \"22821085-77b9-4ae2-beed-0487c6d399d0\"\n}",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{base_url}}/product/BIR-1810"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Create Category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Anniversary\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/category"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Anniversary\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/category/22821085-77b9-4ae2-beed-0487c6d399d0"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/category"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/category/57e2440d-686e-48c1-9f4b-f689141955f1"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{base_url}}/category/57e2440d-686e-48c1-9f4b-f689141955f1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"receiverName\": \"rakib\",\r\n    \"receiverPhone\": \"01265487921\",\r\n    \"productId\": \"b9a529df-48ce-40dc-abdf-fda6ebc55622\",\r\n    \"deliveryDate\": \"20-12-2025\",\r\n    \"deliveryTime\": \"2.00 PM\",\r\n    \"orderAddress\": {\r\n        \"city\": \"Dhaka\",\r\n        \"country\": \"BD\",\r\n        \"address_detail\": \"mirpur\"\r\n    },\r\n    \"amount\": 2000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/order/create-order"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/order"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Order",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/imamh/Desktop/578082867_1323748633100973_5419895269130452532_n.jpg"
+								},
+								{
+									"key": "data",
+									"value": "{\n  \"title\": \"Chocolate Bouquet with Custom Cake Surprise\",\n  \"price\": 2250,\n  \"discountedPrice\": 10,\n  \"deliveryCharge\": 300,\n  \"categoryId\": \"1cc28054-873b-431a-b527-96ae24b4be0c\",\n  \"items\": [\n    \"Premium chocolate bouquet arrangement\",\n    \"Assorted chocolates (KitKat, Snickers, Kinder Bueno, Amul Dark Chocolate, Perk)\",\n    \"Artificial peach roses with green fillers\",\n    \"Luxury white wrapping paper with golden marble design\",\n    \"Decorative red ribbon bow\",\n    \"Custom designed chocolate cake\",\n    \"Cake message customization\",\n    \"Celebration party popper candle\"\n  ],\n  \"description\": \"A delightful chocolate bouquet surprise paired with a custom-designed chocolate cake. Featuring premium assorted chocolates beautifully arranged with artificial roses and elegant wrapping, this combo is perfect for birthdays, anniversaries, or romantic surprises.\"\n}",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{base_url}}/order"
+					},
+					"response": []
+				},
+				{
+					"name": "Get my Order",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/imamh/Desktop/578082867_1323748633100973_5419895269130452532_n.jpg"
+								},
+								{
+									"key": "data",
+									"value": "{\n  \"title\": \"Chocolate Bouquet with Custom Cake Surprise\",\n  \"price\": 2250,\n  \"discountedPrice\": 10,\n  \"deliveryCharge\": 300,\n  \"categoryId\": \"1cc28054-873b-431a-b527-96ae24b4be0c\",\n  \"items\": [\n    \"Premium chocolate bouquet arrangement\",\n    \"Assorted chocolates (KitKat, Snickers, Kinder Bueno, Amul Dark Chocolate, Perk)\",\n    \"Artificial peach roses with green fillers\",\n    \"Luxury white wrapping paper with golden marble design\",\n    \"Decorative red ribbon bow\",\n    \"Custom designed chocolate cake\",\n    \"Cake message customization\",\n    \"Celebration party popper candle\"\n  ],\n  \"description\": \"A delightful chocolate bouquet surprise paired with a custom-designed chocolate cake. Featuring premium assorted chocolates beautifully arranged with artificial roses and elegant wrapping, this combo is perfect for birthdays, anniversaries, or romantic surprises.\"\n}",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{base_url}}/order/my-orders"
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": \"COMPLETE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/order/513bbf54-9648-4f02-8653-96283af64214/status"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "",
+			"disabled": true
+		},
+		{
+			"key": "base_url",
+			"value": ""
+		}
+	]
+}
