@@ -37,7 +37,8 @@ const registerCustomer = async (payload: IRegisterCustomerPayload) => {
     include: { address: true }
   });
 
-  return newCustomer;
+  const { password, ...customerWithoutPassword } = newCustomer;
+  return customerWithoutPassword;
 }
 
 const registerModerator = async (payload: IRegisterModeratorPayload) => {
@@ -70,7 +71,8 @@ const registerModerator = async (payload: IRegisterModeratorPayload) => {
     include: { address: true }
   });
 
-  return newModerator;
+  const { password, ...moderatorWithoutPassword } = newModerator;
+  return moderatorWithoutPassword;
 }
 
 const updateMyProfile = async (payload: Partial<IUpdateUser> & { profileFile?: Express.Multer.File }, user: JwtPayload) => {
@@ -117,6 +119,9 @@ const getAllCustomers = async (query: Record<string, any>) => {
       isDeleted: query.isDeleted,
       status: query.status,
     },
+    {
+      password: false,
+    }
   );
 
   qb.setInclude({
@@ -147,6 +152,9 @@ const getAllModerators = async (query: Record<string, any>) => {
       isDeleted: query.isDeleted,
       status: query.status,
     },
+    {
+      password: false,
+    }
   );
 
   qb.setInclude({
