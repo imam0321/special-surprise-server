@@ -42,35 +42,31 @@ const createProduct = async (payload: Partial<Product> & { thumbnailFile?: Expre
 };
 
 const getAllProducts = async (query: Record<string, string>) => {
-  const { page, limit="6", sortBy, sortOrder, searchTerm, min, max, category } = query;
-
-  const queryBuilder = new QueryBuilder(
-    prisma.product,
-    {
-      page,
-      limit,
-      sortBy,
-      sortOrder,
-      searchTerm,
-      searchFields: ["title", "productCode"],
+  const qb = new QueryBuilder(prisma.product, query);
+  
+  qb.setInclude({
+    category: {
+      select: {
+        name: true,
+      },
     },
-  )
-    .addRangeFilter("price", min ? Number(min) : undefined, max ? Number(max) : undefined)
-    .setInclude({ category: true });
+  });
 
-  if (category) {
-    queryBuilder.addWhere({
+  qb.addRangeFilter("price", query.min ? Number(query.min) : undefined, query.max ? Number(query.max) : undefined);
+
+  if (query.category) {
+    qb.addWhere({
       category: {
         name: {
-          contains: category,
+          contains: query.category,
           mode: "insensitive",
-        }
-      }
+        },
+      },
     });
   }
 
-  return await queryBuilder.exec();
-}
+  return await qb.exec();
+};
 
 const getProductByProductCode = async (productCode: string) => {
   const product = await prisma.product.findFirst({
@@ -131,8 +127,6 @@ const updateProduct = async (
     }
   });
 };
-
-
 
 const deleteProduct = async (productCode: string) => {
   const product = await prisma.product.findUnique({ where: { productCode } });

@@ -8,7 +8,6 @@ import { JwtPayload } from "jsonwebtoken";
 import { isUserExist } from "../../utils/isUserExist";
 import { fileUploader } from "../../config/cloudinary.config";
 import { QueryBuilder } from "../../utils/QueryBuilder";
-import { password } from "bun";
 
 const registerCustomer = async (payload: IRegisterCustomerPayload) => {
   const isUserExist = await prisma.user.findUnique({
@@ -111,58 +110,64 @@ const updateMyProfile = async (payload: Partial<IUpdateUser> & { profileFile?: E
 }
 
 const getAllCustomers = async (query: Record<string, any>) => {
-  const { page, limit, sortBy, sortOrder, searchTerm, isDeleted, status } = query;
-
-  const queryBuilder = new QueryBuilder(
+  const qb = new QueryBuilder(
     prisma.user,
+    query,
     {
-      page,
-      limit,
-      sortBy,
-      sortOrder,
-      searchTerm,
-      searchFields: ["name", "phone", "email"],
+      isDeleted: query.isDeleted,
+      status: query.status,
     },
-    {
-      isDeleted,
-      status,
-    },
-    {
-      password: false,
-    }
-  )
-    .addWhere({ role: UserRole.USER })
-    .setInclude({ address: true });
+  );
 
-  return await queryBuilder.exec();
+  qb.setInclude({
+    address: {
+      select: {
+        city: true,
+        country: true,
+        address_detail: true,
+      },
+    },
+  });
+
+  qb.addWhere({ role: UserRole.USER });
+
+  qb.options.searchFields = ["name", "email", "phone"];
+
+  qb.options.sortBy = query.sortBy || "createdAt";
+  qb.options.sortOrder = query.sortOrder || "desc";
+
+  return await qb.exec();
 };
 
 const getAllModerators = async (query: Record<string, any>) => {
-  const { page, limit, sortBy, sortOrder, searchTerm, isDeleted, status } = query;
-
-  const queryBuilder = new QueryBuilder(
+  const qb = new QueryBuilder(
     prisma.user,
+    query,
     {
-      page,
-      limit,
-      sortBy,
-      sortOrder,
-      searchTerm,
-      searchFields: ["name", "phone", "email"],
+      isDeleted: query.isDeleted,
+      status: query.status,
     },
-    {
-      isDeleted,
-      status,
-    },
-    {
-      password: false,
-    }
-  )
-    .addWhere({ role: UserRole.MODERATOR })
-    .setInclude({ address: true });
+  );
 
-  return await queryBuilder.exec();
-}
+  qb.setInclude({
+    address: {
+      select: {
+        city: true,
+        country: true,
+        address_detail: true,
+      },
+    },
+  });
+
+  qb.addWhere({ role: UserRole.MODERATOR });
+
+  qb.options.searchFields = ["name", "email", "phone"];
+
+  qb.options.sortBy = query.sortBy || "createdAt";
+  qb.options.sortOrder = query.sortOrder || "desc";
+
+  return await qb.exec();
+};
 
 const getSingleUserById = async (id: string) => {
   const user = await prisma.user.findUnique({
