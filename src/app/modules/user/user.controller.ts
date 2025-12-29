@@ -62,7 +62,8 @@ const getAllModerators = catchAsync(async (req: Request, res: Response, next: Ne
     statusCode: httpStatus.OK,
     success: true,
     message: "Moderators retrieved successfully",
-    data: result,
+    data: result.data,
+    meta: result.meta
   });
 });
 
