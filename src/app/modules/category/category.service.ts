@@ -1,6 +1,7 @@
-import httpStatus from 'http-status-codes';
+import httpStatus from "http-status-codes";
 import { prisma } from "../../config/db";
 import AppError from "../../errorHelpers/AppError";
+import { QueryBuilder } from "../../utils/QueryBuilder";
 
 const createCategory = async (name: string) => {
   if (!name) {
@@ -11,11 +12,20 @@ const createCategory = async (name: string) => {
       name,
     },
   });
-}
+};
 
-const getAllCategories = async () => {
-  return prisma.category.findMany();
-}
+const getAllCategories = async (query: Record<string, string>) => {
+  const qb = new QueryBuilder(prisma.category, query);
+  qb.setInclude({
+    _count: {
+      select: {
+        products: true,
+      },
+    },
+  });
+
+  return await qb.exec();
+};
 
 const getCategoryById = async (id: string) => {
   const category = await prisma.category.findUnique({
@@ -25,7 +35,7 @@ const getCategoryById = async (id: string) => {
     throw new AppError(httpStatus.NOT_FOUND, "Category not found");
   }
   return category;
-}
+};
 
 const updateCategory = async (id: string, name: string) => {
   const category = await prisma.category.findUnique({
@@ -38,7 +48,7 @@ const updateCategory = async (id: string, name: string) => {
     where: { id },
     data: { name },
   });
-}
+};
 
 const deleteCategory = async (id: string) => {
   const category = await prisma.category.findUnique({
@@ -50,12 +60,12 @@ const deleteCategory = async (id: string) => {
   return prisma.category.delete({
     where: { id },
   });
-}
+};
 
 export const CategoryService = {
   createCategory,
   getAllCategories,
   getCategoryById,
   updateCategory,
-  deleteCategory
+  deleteCategory,
 };

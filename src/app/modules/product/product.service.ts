@@ -64,6 +64,7 @@ const getAllProducts = async (query: Record<string, string>) => {
       },
     });
   }
+  qb.options.searchFields = ["title", "productCode"];
 
   return await qb.exec();
 };
