@@ -106,12 +106,7 @@ const updateProduct = async (
 
   let updatedItems = product.items;
   if (payload.items) {
-    const payloadSet = new Set(payload.items);
-    updatedItems = product.items.filter(item => payloadSet.has(item) || product.items.includes(item));
-
-    payload.items.forEach(item => {
-      if (!updatedItems.includes(item)) updatedItems.push(item);
-    });
+    updatedItems = [...payload.items];
   }
 
   return prisma.product.update({
