@@ -14,7 +14,7 @@ const createProduct = catchAsync(async (req: Request, res: Response, next: NextF
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,
-    message: "Product created successfully",
+    message: "Surprise created successfully",
     data: result,
   });
 });
@@ -25,7 +25,7 @@ const getAllProducts = catchAsync(async (req: Request, res: Response, next: Next
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Products retrieve successfully",
+    message: "Surprises retrieve successfully",
     data: result.data,
     meta: result.meta
   });
@@ -37,7 +37,7 @@ const getProductByProductCode = catchAsync(async (req: Request, res: Response, n
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Product retrieve successfully",
+    message: "Surprise retrieve successfully",
     data: result,
   });
 });
@@ -52,7 +52,7 @@ const updateProduct = catchAsync(async (req: Request, res: Response, next: NextF
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Product updated successfully",
+    message: "Surprise updated successfully",
     data: result,
   });
 });
@@ -63,7 +63,7 @@ const deleteProduct = catchAsync(async (req: Request, res: Response, next: NextF
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Product deleted successfully",
+    message: "Surprise deleted successfully",
     data: result,
   });
 });

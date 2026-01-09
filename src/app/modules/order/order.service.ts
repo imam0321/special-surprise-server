@@ -1,15 +1,14 @@
-import httpStatus from 'http-status-codes';
+import httpStatus from "http-status-codes";
 import { OrderStatus, PaymentStatus } from "@prisma/client";
 import { isUserExist } from "../../utils/isUserExist";
 import { prisma } from "../../config/db";
 import { generateOrderCode } from "../../utils/generateOrderCode";
 import AppError from "../../errorHelpers/AppError";
 import { parse } from "date-fns";
-import { SSLService } from '../sslCommerz/sslCommerz.service';
-import { ISSLCommerz } from '../sslCommerz/sslCommerz.interface';
-import { ICreateOrder } from './order.interface';
-import { QueryBuilder } from '../../utils/QueryBuilder';
-
+import { SSLService } from "../sslCommerz/sslCommerz.service";
+import { ISSLCommerz } from "../sslCommerz/sslCommerz.interface";
+import { ICreateOrder } from "./order.interface";
+import { QueryBuilder } from "../../utils/QueryBuilder";
 
 const createOrder = async (payload: ICreateOrder, email: string) => {
   const user = await isUserExist(email);
@@ -41,7 +40,7 @@ const createOrder = async (payload: ICreateOrder, email: string) => {
         deliveryDate,
         deliveryTime,
         orderAddress: {
-          create: { city, country, address_detail }
+          create: { city, country, address_detail },
         },
       },
       include: {
@@ -52,8 +51,8 @@ const createOrder = async (payload: ICreateOrder, email: string) => {
             email: true,
             phone: true,
             address: true,
-          }
-        }
+          },
+        },
       },
     });
 
@@ -113,7 +112,7 @@ const getAllOrders = async (query: Record<string, any>) => {
       select: {
         amount: true,
         status: true,
-        transactionId: true
+        transactionId: true,
       },
     },
   });
@@ -121,16 +120,22 @@ const getAllOrders = async (query: Record<string, any>) => {
   qb.options.searchFields = ["orderCode", "receiverName", "receiverPhone"];
 
   if (query.status) {
-    const statusArray = Array.isArray(query.status) ? query.status : [query.status];
+    const statusArray = Array.isArray(query.status)
+      ? query.status
+      : [query.status];
     qb.addInFilter("status", statusArray as OrderStatus[]);
   }
-
+  if (query.paymentStatus) {
+  const statusArray = Array.isArray(query.paymentStatus)
+    ? query.paymentStatus
+    : [query.paymentStatus];
+  qb.addRelationInFilter("payment", "status", statusArray as PaymentStatus[]);
+}
   qb.options.sortBy = "createdAt";
   qb.options.sortOrder = "desc";
 
   return await qb.exec();
 };
-
 
 const getMyOrders = async (userId: string, query: Record<string, any>) => {
   const qb = new QueryBuilder(prisma.order, query);

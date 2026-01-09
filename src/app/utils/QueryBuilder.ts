@@ -14,10 +14,10 @@ type TIncludeOptions = Record<string, boolean | object>;
 export class QueryBuilder<T = any> {
   constructor(
     private model: any,
-    public  options: TQueryOptions,
+    public options: TQueryOptions,
     private filters: Record<string, any> = {},
     private includeOptions: TIncludeOptions = {}
-  ) { }
+  ) {}
 
   private customWhere: any[] = [];
 
@@ -37,7 +37,10 @@ export class QueryBuilder<T = any> {
   addRangeFilter(field: string, min?: number, max?: number) {
     if (min != null || max != null) {
       this.customWhere.push({
-        [field]: { ...(min != null && { gte: min }), ...(max != null && { lte: max }) },
+        [field]: {
+          ...(min != null && { gte: min }),
+          ...(max != null && { lte: max }),
+        },
       });
     }
     return this;
@@ -47,6 +50,17 @@ export class QueryBuilder<T = any> {
   addInFilter(field: string, values?: any[]) {
     if (values?.length) {
       this.customWhere.push({ [field]: { in: values } });
+    }
+    return this;
+  }
+
+  addRelationInFilter(relation: string, field: string, values?: any[]) {
+    if (values?.length) {
+      this.customWhere.push({
+        [relation]: {
+          [field]: { in: values },
+        },
+      });
     }
     return this;
   }
@@ -110,7 +124,8 @@ export class QueryBuilder<T = any> {
   /*  Sort  */
   private buildOrderBy() {
     return {
-      [this.options.sortBy || "createdAt"]: (this.options.sortOrder || "desc") as "asc" | "desc",
+      [this.options.sortBy || "createdAt"]: (this.options.sortOrder ||
+        "desc") as "asc" | "desc",
     };
   }
 
@@ -121,7 +136,13 @@ export class QueryBuilder<T = any> {
     const orderBy = this.buildOrderBy();
 
     const [data, total] = await Promise.all([
-      this.model.findMany({ where, skip, take: limit, orderBy, include: this.includeOptions }),
+      this.model.findMany({
+        where,
+        skip,
+        take: limit,
+        orderBy,
+        include: this.includeOptions,
+      }),
       this.model.count({ where }),
     ]);
 
