@@ -8,7 +8,10 @@ import { isUserExist } from "./isUserExist";
 
 export const checkAuth = (...authRoles: string[]) => async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const accessToken = req.headers.authorization || req.cookies.accessToken;
+    const authHeader = req.headers.authorization;
+      const accessToken = authHeader?.startsWith("Bearer ")
+        ? authHeader.split(" ")[1]
+        : authHeader || req.cookies.accessToken;
 
     if (!accessToken) {
       throw new AppError(httpStatus.NOT_FOUND, "No Token found");
