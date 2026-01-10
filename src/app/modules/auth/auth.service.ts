@@ -28,11 +28,23 @@ const credentialLogin = async (payload: { email: string, password: string }) => 
   return tokens;
 }
 
-const getMe = async (decodedToken: JwtPayload) => {
-  const user = await isUserExist(decodedToken.email);
+export const getMe = async (decodedToken: JwtPayload) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      email: decodedToken.email,
+    },
+    include: {
+      address: true,
+    },
+  });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
   const { password, ...userData } = user;
   return userData;
-}
+};
 
 const getNewAccessToken = async (refreshToken: string) => {
   const newAccessToken = await createNewAccessTokenWithRefreshToken(

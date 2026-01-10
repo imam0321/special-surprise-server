@@ -164,6 +164,14 @@ const getMyOrders = async (userId: string, query: Record<string, any>) => {
   });
 
   qb.addWhere({ userId });
+  qb.options.searchFields = ["orderCode", "receiverName", "receiverPhone"];
+
+  if (query.status) {
+    const statusArray = Array.isArray(query.status)
+      ? query.status
+      : [query.status];
+    qb.addInFilter("status", statusArray as OrderStatus[]);
+  }
 
   qb.options.sortBy = "createdAt";
   qb.options.sortOrder = "desc";
