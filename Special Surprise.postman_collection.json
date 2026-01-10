@@ -179,7 +179,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    // Customer\r\n    // \"email\": \"imam.hossain0321@gmail.com\",\r\n    // \"password\": \"123456789\"\r\n\r\n    // Admin\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\": \"admin@gmail.com\"\r\n\r\n    //Moderator\r\n    // \"email\": \"moderator@gmail.com\",\r\n    // \"password\": \"123456789\"\r\n}",
+							"raw": "{\r\n    // Customer\r\n    // \"email\": \"imam.hossain0321@gmail.com\",\r\n    // \"password\": \"123456789\"\r\n\r\n    // Admin\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\": \"123456789\"\r\n\r\n    //Moderator\r\n    // \"email\": \"moderator@gmail.com\",\r\n    // \"password\": \"123456789\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -262,13 +262,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5MTU5M2MzOC1iM2RjLTQ3OTMtYmI2Ni0wOTdjNDUzMjlmYjkiLCJlbWFpbCI6ImFtaW1haHNoYW4xOTk5QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzY1MzY3Nzc4LCJleHAiOjE3NjUzNjgzNzh9.azsPdcSErHkP5DgdeXCXC8NHi5rcTq5jcABfTPRjJfM",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkZmU0YWE0Mi03ZWUyLTRmMWMtOTNjZC03YTM0ZDMwMGRlZWUiLCJlbWFpbCI6ImltYW0uaG9zc2FpbjAzMjFAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3Njc5ODY2NTYsImV4cCI6MTc2Nzk4NzI1Nn0.qOxCC4S6weEZtjvouNNd2cDasCXSvo2P8W-Xjj-xYjg",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"91593c38-b3dc-4793-bb66-097c45329fb9\",\r\n    \"newPassword\": \"12345679\"\r\n}",
+							"raw": "{\r\n    \"id\": \"dfe4aa42-7ee2-4f1c-93cd-7a34d300deee\",\r\n    \"newPassword\": \"12345679\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -295,11 +295,11 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/C:/Users/imamh/Desktop/578082867_1323748633100973_5419895269130452532_n.jpg"
+									"src": "/C:/Users/imamh/Desktop/612507011_1369572998518536_4412275050758654583_n.jpg"
 								},
 								{
 									"key": "data",
-									"value": "{\n  \"title\": \"Chocolate Bouquet with Custom Cake Surprise\",\n  \"price\": 2250,\n  \"discountedPrice\": 10,\n  \"deliveryCharge\": 300,\n  \"categoryId\": \"1cc28054-873b-431a-b527-96ae24b4be0c\",\n  \"items\": [\n    \"Premium chocolate bouquet arrangement\",\n    \"Assorted chocolates (KitKat, Snickers, Kinder Bueno, Amul Dark Chocolate, Perk)\",\n    \"Artificial peach roses with green fillers\",\n    \"Luxury white wrapping paper with golden marble design\",\n    \"Decorative red ribbon bow\",\n    \"Custom designed chocolate cake\",\n    \"Cake message customization\",\n    \"Celebration party popper candle\"\n  ],\n  \"description\": \"A delightful chocolate bouquet surprise paired with a custom-designed chocolate cake. Featuring premium assorted chocolates beautifully arranged with artificial roses and elegant wrapping, this combo is perfect for birthdays, anniversaries, or romantic surprises.\"\n}",
+									"value": "{\n  \"title\": \"Exquisite 'Dear Wife' Hot Air Balloon & Snack Suite\",\n  \"price\": 5500,\n  \"discountedPrice\": 0,\n  \"deliveryCharge\": 350,\n  \"categoryId\": \"7a002e8b-dd29-4ee0-8ce6-a02bd055a7d4\",\n  \"items\": [\n    \"Large bubble balloon with 'Love You My Dear Wife' custom text\",\n    \"Silver and gold metallic inner balloons\",\n    \"Illuminated white rose box with warm fairy lights\",\n    \"Massive snack box featuring 6x Pringles cans\",\n    \"Extensive chocolate variety including KitKat and Dairy Milk\",\n    \"Decorative black and yellow rose accents\",\n    \"Dual black cylindrical luxury gift boxes with gold ribbons\"\n  ],\n  \"description\": \"Show your wife how much she means to you with this high-end luxury surprise. Featuring a personalized floating hot air balloon, a glowing box of elegant white roses, and an enormous selection of her favorite snacks and chocolates, this is the ultimate anniversary gift.\"\n}",
 									"type": "text"
 								}
 							]
@@ -413,11 +413,11 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/C:/Users/imamh/Desktop/595608007_1343661091109727_1296529435342512944_n.jpg"
+									"src": "/C:/Users/imamh/Desktop/ybopyy9lomunkyaztgob.webp"
 								}
 							]
 						},
-						"url": "{{base_url}}/product/ANN-9243"
+						"url": "{{base_url}}/product/BIR-9005"
 					},
 					"response": []
 				},
@@ -525,7 +525,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"receiverName\": \"rakib\",\r\n    \"receiverPhone\": \"01265487921\",\r\n    \"productId\": \"b9a529df-48ce-40dc-abdf-fda6ebc55622\",\r\n    \"deliveryDate\": \"20-12-2025\",\r\n    \"deliveryTime\": \"2.00 PM\",\r\n    \"orderAddress\": {\r\n        \"city\": \"Dhaka\",\r\n        \"country\": \"BD\",\r\n        \"address_detail\": \"mirpur\"\r\n    },\r\n    \"amount\": 2000\r\n}",
+							"raw": "{\r\n    \"receiverName\": \"rakib\",\r\n    \"receiverPhone\": \"01265487921\",\r\n    \"productId\": \"a1fb0f3e-b587-4160-a916-4b510572a942\",\r\n    \"deliveryDate\": \"20-12-2025\",\r\n    \"deliveryTime\": \"2.00 PM\",\r\n    \"orderAddress\": {\r\n        \"city\": \"Dhaka\",\r\n        \"country\": \"BD\",\r\n        \"address_detail\": \"mirpur\"\r\n    },\r\n    \"amount\": 2000\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -541,33 +541,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{base_url}}/order"
-					},
-					"response": []
-				},
-				{
-					"name": "Get All Order",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "file",
-									"type": "file",
-									"src": "/C:/Users/imamh/Desktop/578082867_1323748633100973_5419895269130452532_n.jpg"
-								},
-								{
-									"key": "data",
-									"value": "{\n  \"title\": \"Chocolate Bouquet with Custom Cake Surprise\",\n  \"price\": 2250,\n  \"discountedPrice\": 10,\n  \"deliveryCharge\": 300,\n  \"categoryId\": \"1cc28054-873b-431a-b527-96ae24b4be0c\",\n  \"items\": [\n    \"Premium chocolate bouquet arrangement\",\n    \"Assorted chocolates (KitKat, Snickers, Kinder Bueno, Amul Dark Chocolate, Perk)\",\n    \"Artificial peach roses with green fillers\",\n    \"Luxury white wrapping paper with golden marble design\",\n    \"Decorative red ribbon bow\",\n    \"Custom designed chocolate cake\",\n    \"Cake message customization\",\n    \"Celebration party popper candle\"\n  ],\n  \"description\": \"A delightful chocolate bouquet surprise paired with a custom-designed chocolate cake. Featuring premium assorted chocolates beautifully arranged with artificial roses and elegant wrapping, this combo is perfect for birthdays, anniversaries, or romantic surprises.\"\n}",
-									"type": "text"
-								}
-							]
-						},
 						"url": "{{base_url}}/order"
 					},
 					"response": []
@@ -600,7 +573,7 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Order Status",
 					"request": {
 						"method": "PATCH",
 						"header": [],
@@ -647,12 +620,12 @@
 	"variable": [
 		{
 			"key": "base_url",
-			"value": "",
-			"disabled": true
+			"value": ""
 		},
 		{
 			"key": "base_url",
-			"value": ""
+			"value": "",
+			"disabled": true
 		}
 	]
 }

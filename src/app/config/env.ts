@@ -22,8 +22,6 @@ interface EnvConfig {
         JWT_ACCESS_EXPIRES: string;
         JWT_REFRESH_SECRET: string;
         JWT_REFRESH_EXPIRES: string;
-        JWT_RESET_SECRET: string;
-        JWT_RESET_EXPIRES: string;
     };
     EMAIL_SENDER: {
         SMTP_HOST: string;
@@ -61,8 +59,6 @@ const loadEnvVariables = (): EnvConfig => {
         "CLOUDINARY_CLOUD_API_SECRET",
         "JWT_ACCESS_SECRET",
         "JWT_ACCESS_EXPIRES",
-        "JWT_REFRESH_SECRET",
-        "JWT_REFRESH_EXPIRES",
         "SMTP_HOST",
         "SMTP_POST",
         "SMTP_USER",
@@ -109,8 +105,6 @@ const loadEnvVariables = (): EnvConfig => {
             JWT_ACCESS_EXPIRES: process.env.JWT_ACCESS_EXPIRES as string,
             JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET as string,
             JWT_REFRESH_EXPIRES: process.env.JWT_REFRESH_EXPIRES as string,
-            JWT_RESET_SECRET: process.env.JWT_RESET_SECRET as string,
-            JWT_RESET_EXPIRES: process.env.JWT_RESET_EXPIRES as string,
         },
         EMAIL_SENDER: {
             SMTP_HOST: process.env.SMTP_HOST as string,

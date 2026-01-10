@@ -6,7 +6,7 @@
 
 ## 🔗 Live Link
 
-- **Frontend**: [https://special-surprise-0321.vercel.app](https://special-surprise-0321.vercel.app)
+- **Frontend**: [https://special-surprise-client.vercel.app](https://special-surprise-client.vercel.app)
 - **Frontend Repository**: [https://github.com/imam0321/special-surprise-client](https://github.com/imam0321/tour-matrix-client)
 - **Backend**: [https://special-surprise-server.vercel.app](https://special-surprise-server.vercel.app)
 
