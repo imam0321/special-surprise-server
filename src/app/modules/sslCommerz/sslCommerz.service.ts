@@ -45,10 +45,17 @@ const sslPaymentInit = async (payload: ISSLCommerz) => {
       url: envVars.SSL.SSL_PAYMENT_API,
       data: data,
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      timeout: 30000, 
     });
 
     return response.data;
   } catch (error: any) {
+    if (error.response) {
+      throw new AppError(
+        error.response.status || httpStatus.BAD_REQUEST,
+        JSON.stringify(error.response.data) || error.message
+      );
+    }
     throw new AppError(httpStatus.BAD_REQUEST, error.message);
   }
 };
