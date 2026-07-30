@@ -15,6 +15,9 @@ model Order {
   orderAddress  OrderAddress?
   payment       Payment?
 
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
   @@map("orders")
 }
 

@@ -14,6 +14,8 @@ model User {
   address   Address?
   orders    Order[]
 
+  @@index([role, status])
+  @@index([isDeleted])
   @@map("users")
 }
 

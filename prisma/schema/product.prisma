@@ -28,5 +28,8 @@ model Product {
 
   orders Order[]
 
+  @@index([categoryId])
+  @@index([price])
+  @@index([createdAt])
   @@map("products")
 }

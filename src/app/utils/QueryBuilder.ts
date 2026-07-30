@@ -84,8 +84,9 @@ export class QueryBuilder<T = any> {
 
   /*  Pagination  */
   private buildPagination() {
-    const page = Number(this.options.page) || 1;
-    const limit = Number(this.options.limit) || 10;
+    const page = Math.max(Number(this.options.page) || 1, 1);
+    const rawLimit = Number(this.options.limit) || 10;
+    const limit = Math.min(Math.max(rawLimit, 1), 100);
     return { page, limit, skip: (page - 1) * limit };
   }
 
@@ -157,13 +158,14 @@ export class QueryBuilder<T = any> {
     };
   }
 
-  /*  Exec All  */
+  /*  Exec All (capped at 500 records)  */
   async execAll() {
     return {
       data: await this.model.findMany({
         where: this.buildWhere(),
         orderBy: this.buildOrderBy(),
         include: this.includeOptions,
+        take: 500,
       }),
     };
   }

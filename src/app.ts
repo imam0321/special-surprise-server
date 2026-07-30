@@ -6,16 +6,30 @@ import { router } from './app/routes';
 import cookieParser from 'cookie-parser';
 
 
+import { envVars } from './app/config/env';
+
 const app: Application = express();
+
+const allowedOrigins = [
+  envVars.FRONTEND_URL,
+  'http://localhost:3000',
+].filter(Boolean);
+
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(null, true);
+        }
+    },
     credentials: true
 }));
 
 //parser
-app.use(express.json());
-app.use(cookieParser())
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '1mb' }));
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 
 app.use("/api/v1", router);
 
